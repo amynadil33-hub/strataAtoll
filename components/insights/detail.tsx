@@ -5,17 +5,14 @@ import Link from "next/link";
 import { LuxuryHeader } from "@/components/luxury-header";
 import { SiteFooter } from "@/components/site-footer";
 import { RequestAccessCTA } from "@/components/request-access-cta";
-import { Insight, formatCategory } from "@/lib/types";
-import { INSIGHTS } from "@/lib/mock-data";
+import { formatCategory, type InsightArticle } from "@/lib/types";
 
 interface InsightDetailProps {
-  insight: Insight;
+  insight: InsightArticle & { author: string; date: string };
+  relatedInsights: (InsightArticle & { author: string; date: string })[];
 }
 
 export function InsightDetail({ insight }: InsightDetailProps) {
-  const relatedInsights = INSIGHTS.filter(
-    (i) => i.id !== insight.id && i.category === insight.category
-  ).slice(0, 2);
 
   return (
     <>

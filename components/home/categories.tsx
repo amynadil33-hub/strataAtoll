@@ -2,7 +2,7 @@
 
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import { CategoryCard } from "@/components/category-card";
-import { segments } from "@/lib/mock-data";
+import { segments } from "@/lib/segments";
 
 export function HomeCategories() {
   return (

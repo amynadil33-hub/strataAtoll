@@ -5,7 +5,7 @@ import { useState } from "react";
 import { LuxuryHeader } from "@/components/luxury-header";
 import { SiteFooter } from "@/components/site-footer";
 import { RiskDisclosure } from "@/components/risk-disclosure";
-import { SEGMENTS } from "@/lib/mock-data";
+import { segments } from "@/lib/segments";
 
 const relationshipTypes = [
   "Asset Owner",
@@ -201,9 +201,9 @@ export default function SubmitOpportunityPage() {
                       className="w-full bg-card border border-border px-4 py-4 text-foreground focus:outline-none focus:border-primary transition-colors appearance-none"
                     >
                       <option value="">Select segment...</option>
-                      {SEGMENTS.map((seg) => (
+                      {segments.map((seg) => (
                         <option key={seg.id} value={seg.id}>
-                          {seg.name}
+                          {seg.title}
                         </option>
                       ))}
                     </select>
