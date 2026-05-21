@@ -68,6 +68,7 @@ export interface Opportunity {
   legalNotes: string;
   lockedItems: string[];
   image: string;
+  galleryImages: string[];
   isFeatured: boolean;
   createdAt: string;
 }

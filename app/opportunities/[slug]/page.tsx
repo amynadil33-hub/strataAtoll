@@ -3,13 +3,15 @@ import { LuxuryHeader } from "@/components/luxury-header";
 import { SiteFooter } from "@/components/site-footer";
 import { OpportunityDetail } from "@/components/opportunities/detail";
 import { RequestAccessCTA } from "@/components/request-access-cta";
-import { opportunities, getOpportunityBySlug } from "@/lib/mock-data";
+import { getAllOpportunities, getOpportunityBySlug } from "@/lib/opportunities";
 
 interface OpportunityPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
+  const opportunities = await getAllOpportunities();
+
   return opportunities.map((opp) => ({
     slug: opp.slug,
   }));
@@ -17,7 +19,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: OpportunityPageProps) {
   const { slug } = await params;
-  const opportunity = getOpportunityBySlug(slug);
+  const opportunity = await getOpportunityBySlug(slug);
 
   if (!opportunity) {
     return {
@@ -33,7 +35,7 @@ export async function generateMetadata({ params }: OpportunityPageProps) {
 
 export default async function OpportunityPage({ params }: OpportunityPageProps) {
   const { slug } = await params;
-  const opportunity = getOpportunityBySlug(slug);
+  const opportunity = await getOpportunityBySlug(slug);
 
   if (!opportunity) {
     notFound();

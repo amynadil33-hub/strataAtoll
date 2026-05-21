@@ -3,6 +3,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { PageHero } from "@/components/page-hero";
 import { OpportunitiesContent } from "@/components/opportunities/content";
 import { RequestAccessCTA } from "@/components/request-access-cta";
+import { getAllOpportunities } from "@/lib/opportunities";
 
 export const metadata = {
   title: "Opportunities | ATOLL ESTATES",
@@ -10,7 +11,9 @@ export const metadata = {
     "Browse curated Maldives tourism real estate opportunities across integrated tourism, strata villas, resort development, and more.",
 };
 
-export default function OpportunitiesPage() {
+export default async function OpportunitiesPage() {
+  const opportunities = await getAllOpportunities();
+
   return (
     <>
       <LuxuryHeader />
@@ -22,7 +25,7 @@ export default function OpportunitiesPage() {
           backgroundImage="https://images.unsplash.com/photo-1540202404-a2f29016b523?q=80&w=2833&auto=format&fit=crop"
           size="large"
         />
-        <OpportunitiesContent />
+        <OpportunitiesContent opportunities={opportunities} />
         <RequestAccessCTA
           title="Request Full Access to the Development Pipeline"
           subtitle="Get detailed project information, exact locations, financial models, and legal pathway documentation for qualified investors."

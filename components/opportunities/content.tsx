@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { FilterBar } from "@/components/filter-bar";
 import { OpportunityCard } from "@/components/opportunity-card";
+<<<<<<< HEAD
 import type {
   Opportunity,
   OpportunityCategory,
@@ -73,6 +74,11 @@ export function OpportunitiesContent() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+=======
+import type { Opportunity, OpportunityCategory, AccessLevel, DevelopmentStage } from "@/lib/types";
+
+export function OpportunitiesContent({ opportunities }: { opportunities: Opportunity[] }) {
+>>>>>>> f07b10a6ccb574a0d5f58998147010b42621548f
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] =
     useState<OpportunityCategory | "all">("all");
@@ -173,6 +179,7 @@ export function OpportunitiesContent() {
           </p>
         </div>
 
+<<<<<<< HEAD
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {[1, 2, 3].map((item) => (
@@ -183,6 +190,18 @@ export function OpportunitiesContent() {
             ))}
           </div>
         ) : filteredOpportunities.length > 0 ? (
+=======
+        {/* Grid */}
+        
+        {opportunities.length === 0 ? (
+          <div className="py-20 text-center">
+            <p className="text-lg text-muted-foreground">
+              No opportunities are available right now.
+            </p>
+          </div>
+        ) : filteredOpportunities.length > 0 ? (
+
+>>>>>>> f07b10a6ccb574a0d5f58998147010b42621548f
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {filteredOpportunities.map((opportunity, index) => (
               <OpportunityCard
