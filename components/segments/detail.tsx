@@ -6,17 +6,13 @@ import { ArrowLeft, Check, AlertCircle } from "lucide-react";
 import type { SegmentContent } from "@/lib/segment-content";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import { OpportunityCard } from "@/components/opportunity-card";
-import { getOpportunitiesByCategory } from "@/lib/mock-data";
-import type { OpportunityCategory } from "@/lib/types";
 
 interface SegmentDetailProps {
   content: SegmentContent;
+  relatedOpportunities: import("@/lib/types").Opportunity[];
 }
 
-export function SegmentDetail({ content }: SegmentDetailProps) {
-  const relatedOpportunities = getOpportunitiesByCategory(
-    content.categoryKey as OpportunityCategory
-  ).slice(0, 3);
+export function SegmentDetail({ content, relatedOpportunities }: SegmentDetailProps) {
 
   return (
     <>

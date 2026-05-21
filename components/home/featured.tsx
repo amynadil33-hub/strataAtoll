@@ -1,12 +1,14 @@
-"use client";
-
 import Link from "next/link";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import { OpportunityCard } from "@/components/opportunity-card";
-import { getFeaturedOpportunities } from "@/lib/mock-data";
+import { getFeaturedOpportunities } from "@/lib/opportunities";
 
-export function HomeFeatured() {
-  const featured = getFeaturedOpportunities();
+export async function HomeFeatured() {
+  const featured = await getFeaturedOpportunities();
+
+  if (featured.length === 0) {
+    return null;
+  }
 
   return (
     <section className="py-20 lg:py-32 bg-secondary/30">
