@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { FilterBar } from "@/components/filter-bar";
 import { OpportunityCard } from "@/components/opportunity-card";
-<<<<<<< HEAD
 import type {
   Opportunity,
   OpportunityCategory,
@@ -74,20 +73,13 @@ export function OpportunitiesContent() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-=======
-import type { Opportunity, OpportunityCategory, AccessLevel, DevelopmentStage } from "@/lib/types";
-
-export function OpportunitiesContent({ opportunities }: { opportunities: Opportunity[] }) {
->>>>>>> f07b10a6ccb574a0d5f58998147010b42621548f
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] =
     useState<OpportunityCategory | "all">("all");
-  const [selectedAccess, setSelectedAccess] = useState<AccessLevel | "all">(
-    "all"
-  );
-  const [selectedStage, setSelectedStage] = useState<DevelopmentStage | "all">(
-    "all"
-  );
+  const [selectedAccess, setSelectedAccess] =
+    useState<AccessLevel | "all">("all");
+  const [selectedStage, setSelectedStage] =
+    useState<DevelopmentStage | "all">("all");
 
   useEffect(() => {
     async function loadOpportunities() {
@@ -97,11 +89,14 @@ export function OpportunitiesContent({ opportunities }: { opportunities: Opportu
         .eq("is_visible", true)
         .order("created_at", { ascending: false });
 
+      console.log("Supabase data:", data);
+      console.log("Supabase error:", error);
+
       if (error) {
-        console.error("Failed to load opportunities:", error.message);
+        console.error(error);
         setOpportunities([]);
       } else {
-        setOpportunities((data || []).map((row) => mapOpportunity(row)));
+        setOpportunities((data || []).map(mapOpportunity));
       }
 
       setIsLoading(false);
@@ -114,6 +109,7 @@ export function OpportunitiesContent({ opportunities }: { opportunities: Opportu
     return opportunities.filter((opp) => {
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
+
         const matchesSearch =
           opp.title.toLowerCase().includes(query) ||
           opp.codeName.toLowerCase().includes(query) ||
@@ -163,23 +159,12 @@ export function OpportunitiesContent({ opportunities }: { opportunities: Opportu
 
         <div className="mb-8">
           <p className="text-sm text-muted-foreground">
-            {isLoading ? (
-              "Loading opportunities..."
-            ) : (
-              <>
-                Showing{" "}
-                <span className="text-foreground">
-                  {filteredOpportunities.length}
-                </span>{" "}
-                {filteredOpportunities.length === 1
-                  ? "opportunity"
-                  : "opportunities"}
-              </>
-            )}
+            {isLoading
+              ? "Loading opportunities..."
+              : `Showing ${filteredOpportunities.length} opportunities`}
           </p>
         </div>
 
-<<<<<<< HEAD
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {[1, 2, 3].map((item) => (
@@ -190,18 +175,6 @@ export function OpportunitiesContent({ opportunities }: { opportunities: Opportu
             ))}
           </div>
         ) : filteredOpportunities.length > 0 ? (
-=======
-        {/* Grid */}
-        
-        {opportunities.length === 0 ? (
-          <div className="py-20 text-center">
-            <p className="text-lg text-muted-foreground">
-              No opportunities are available right now.
-            </p>
-          </div>
-        ) : filteredOpportunities.length > 0 ? (
-
->>>>>>> f07b10a6ccb574a0d5f58998147010b42621548f
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {filteredOpportunities.map((opportunity, index) => (
               <OpportunityCard
@@ -214,19 +187,8 @@ export function OpportunitiesContent({ opportunities }: { opportunities: Opportu
         ) : (
           <div className="py-20 text-center">
             <p className="text-lg text-muted-foreground mb-4">
-              No opportunities match your current filters.
+              No opportunities found.
             </p>
-            <button
-              onClick={() => {
-                setSearchQuery("");
-                setSelectedCategory("all");
-                setSelectedAccess("all");
-                setSelectedStage("all");
-              }}
-              className="text-sm text-primary hover:text-foreground transition-colors"
-            >
-              Clear all filters
-            </button>
           </div>
         )}
       </div>
