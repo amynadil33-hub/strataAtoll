@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SegmentDetail } from "@/components/segments/detail";
 import { RequestAccessCTA } from "@/components/request-access-cta";
 import { segmentContents, getSegmentContent } from "@/lib/segment-content";
+import { getOpportunitiesByCategory } from "@/lib/opportunities";
 
 interface SegmentPageProps {
   params: Promise<{ slug: string }>;
@@ -41,7 +42,10 @@ export default async function SegmentPage({ params }: SegmentPageProps) {
     <>
       <LuxuryHeader />
       <main>
-        <SegmentDetail content={content} />
+        <SegmentDetail
+          content={content}
+          relatedOpportunities={(await getOpportunitiesByCategory(content.categoryKey)).slice(0, 3)}
+        />
         <RequestAccessCTA
           title={`Explore ${content.title}`}
           subtitle="Request private access to view available opportunities in this segment."

@@ -3,10 +3,9 @@
 import { useState, useMemo } from "react";
 import { FilterBar } from "@/components/filter-bar";
 import { OpportunityCard } from "@/components/opportunity-card";
-import { opportunities } from "@/lib/mock-data";
-import type { OpportunityCategory, AccessLevel, DevelopmentStage } from "@/lib/types";
+import type { Opportunity, OpportunityCategory, AccessLevel, DevelopmentStage } from "@/lib/types";
 
-export function OpportunitiesContent() {
+export function OpportunitiesContent({ opportunities }: { opportunities: Opportunity[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<OpportunityCategory | "all">("all");
   const [selectedAccess, setSelectedAccess] = useState<AccessLevel | "all">("all");
@@ -71,7 +70,15 @@ export function OpportunitiesContent() {
         </div>
 
         {/* Grid */}
-        {filteredOpportunities.length > 0 ? (
+        
+        {opportunities.length === 0 ? (
+          <div className="py-20 text-center">
+            <p className="text-lg text-muted-foreground">
+              No opportunities are available right now.
+            </p>
+          </div>
+        ) : filteredOpportunities.length > 0 ? (
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {filteredOpportunities.map((opportunity, index) => (
               <OpportunityCard
