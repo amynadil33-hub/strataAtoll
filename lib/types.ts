@@ -131,7 +131,7 @@ export interface Segment {
 }
 
 // Helper Functions
-export function formatCategory(category: OpportunityCategory): string {
+export function formatCategory(category: OpportunityCategory | string): string {
   const map: Record<OpportunityCategory, string> = {
     integrated_tourism: "Integrated Tourism",
     strata_villas: "Strata Villas",
@@ -142,7 +142,7 @@ export function formatCategory(category: OpportunityCategory): string {
     guesthouse_boutique: "Guesthouse & Boutique Hotels",
     private_island: "Virgin / Private Island",
   };
-  return map[category];
+  return map[category as OpportunityCategory] ?? category.replaceAll("_", " ");
 }
 
 export function formatAccessLevel(level: AccessLevel): string {

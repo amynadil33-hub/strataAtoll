@@ -1,0 +1,12 @@
+import type { Segment } from "@/lib/types";
+
+export const segments: Segment[] = [
+  { id: "seg_001", slug: "integrated-tourism", title: "Integrated Tourism Projects", shortTitle: "Integrated Tourism", description: "Mixed-use tourism developments combining villas, hospitality, dining, wellness, and managed services on selected island land or zones.", icon: "layers", isPrimary: true },
+  { id: "seg_002", slug: "strata-villas", title: "Strata Villa Developments", shortTitle: "Strata Villas", description: "Villa-led tourism real estate where managed villas may be sold or leased as long-term tourism strata interests with rental programmes.", icon: "home", isPrimary: true },
+  { id: "seg_003", slug: "inhabited-island-tourism-land", title: "Inhabited Island Tourism Land", shortTitle: "Inhabited Island Land", description: "Tourism land opportunities on inhabited islands with lower entry barriers than traditional private-island resort acquisitions.", icon: "map-pin", isPrimary: false },
+  { id: "seg_004", slug: "resort-development", title: "Resort Development Projects", shortTitle: "Resort Development", description: "Traditional resort development opportunities including private island, lagoon, leasehold, or tourism development sites.", icon: "building", isPrimary: false },
+  { id: "seg_005", slug: "resort-assets", title: "Resort Assets for Sale", shortTitle: "Resort Assets", description: "Operating, underperforming, or repositioning resort assets for acquisition, partnership, redevelopment, or recapitalisation.", icon: "briefcase", isPrimary: false },
+  { id: "seg_006", slug: "government-council-projects", title: "Government & Council Projects", shortTitle: "Government & Council", description: "Public-sector and council-linked opportunities supporting tourism development, infrastructure investment, and local economic development.", icon: "landmark", isPrimary: false },
+  { id: "seg_007", slug: "guesthouse-boutique-hotels", title: "Guesthouse & Boutique Hotel Projects", shortTitle: "Guesthouse & Boutique", description: "Smaller hospitality opportunities on local islands including guesthouses, boutique hotels, clusters, and operator partnerships.", icon: "hotel", isPrimary: false },
+  { id: "seg_008", slug: "private-islands", title: "Virgin Island / Private Island Opportunities", shortTitle: "Private Islands", description: "Selected virgin island and private island tourism development opportunities for larger-scale resort developers and family offices.", icon: "palm-tree", isPrimary: false },
+];

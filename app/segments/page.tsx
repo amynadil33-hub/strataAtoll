@@ -3,7 +3,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { PageHero } from "@/components/page-hero";
 import { CategoryCard } from "@/components/category-card";
 import { RequestAccessCTA } from "@/components/request-access-cta";
-import { segments } from "@/lib/mock-data";
+import { segments } from "@/lib/segments";
 
 export const metadata = {
   title: "Investment Segments | ATOLL ESTATES",
