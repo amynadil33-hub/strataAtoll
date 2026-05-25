@@ -9,13 +9,13 @@ interface RiskItem {
 }
 
 interface RiskDisclosureProps {
-  risks: RiskItem[];
+  risks?: RiskItem[];
 }
 
-export function RiskDisclosure({ risks }: RiskDisclosureProps) {
+export function RiskDisclosure({ risks = [] }: RiskDisclosureProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {risks.map((risk, index) => (
+      {(risks ?? []).map((risk, index) => (
         <motion.div
           key={risk.title}
           initial={{ opacity: 0, y: 20 }}
