@@ -47,6 +47,28 @@ export type PartnerProfile =
   | "sales_partner"
   | "council_landowner";
 
+// Room / Villa Category Interface
+export interface RoomCategory {
+  id: string;
+  opportunityId: string;
+  slug: string;
+  name: string;
+  categoryType: string;
+  description: string | null;
+  bedroomCount: number | null;
+  bathroomCount: number | null;
+  indoorAreaSqm: number | null;
+  outdoorAreaSqm: number | null;
+  totalAreaSqm: number | null;
+  priceFromUsd: number | null;
+  image: string;
+  galleryImages: string[];
+  features: string[];
+  sortOrder: number;
+  isVisible: boolean;
+  createdAt?: string;
+}
+
 // Main Opportunity Interface
 export interface Opportunity {
   id: string;
@@ -65,12 +87,25 @@ export interface Opportunity {
   estimatedScale: string;
   partnerProfile: PartnerProfile[];
   highlights: string[];
-  legalNotes: string;
+  legalNotes: string | null;
   lockedItems: string[];
   image: string;
   galleryImages: string[];
   isFeatured: boolean;
+  isVisible: boolean;
   createdAt: string;
+
+  // New Supabase-driven page content
+  conceptIdentity: string | null;
+  islandSpeciality: string | null;
+  priceRange: string | null;
+  galleryHeading: string | null;
+  galleryDescription: string | null;
+  villaSectionHeading: string | null;
+  villaSectionSubtitle: string | null;
+
+  // Linked villa / room categories
+  roomCategories: RoomCategory[];
 }
 
 // Inquiry for private access requests
@@ -142,20 +177,22 @@ export function formatCategory(category: OpportunityCategory | string): string {
     guesthouse_boutique: "Guesthouse & Boutique Hotels",
     private_island: "Virgin / Private Island",
   };
+
   return map[category as OpportunityCategory] ?? category.replaceAll("_", " ");
 }
 
-export function formatAccessLevel(level: AccessLevel): string {
+export function formatAccessLevel(level: AccessLevel | string): string {
   const map: Record<AccessLevel, string> = {
     public_summary: "Public Summary",
     qualified_access: "Qualified Access",
     nda_required: "NDA Required",
     private_data_room: "Private Data Room",
   };
-  return map[level];
+
+  return map[level as AccessLevel] ?? level.replaceAll("_", " ");
 }
 
-export function formatStage(stage: DevelopmentStage): string {
+export function formatStage(stage: DevelopmentStage | string): string {
   const map: Record<DevelopmentStage, string> = {
     concept: "Concept Stage",
     preliminary_permits: "Preliminary Permits",
@@ -164,10 +201,11 @@ export function formatStage(stage: DevelopmentStage): string {
     operational: "Operational",
     repositioning: "Repositioning",
   };
-  return map[stage];
+
+  return map[stage as DevelopmentStage] ?? stage.replaceAll("_", " ");
 }
 
-export function formatStructure(structure: StructureType): string {
+export function formatStructure(structure: StructureType | string): string {
   const map: Record<StructureType, string> = {
     leasehold: "Leasehold",
     strata: "Tourism Strata",
@@ -176,10 +214,11 @@ export function formatStructure(structure: StructureType): string {
     development_agreement: "Development Agreement",
     asset_sale: "Asset Sale",
   };
-  return map[structure];
+
+  return map[structure as StructureType] ?? structure.replaceAll("_", " ");
 }
 
-export function formatPartnerProfile(profile: PartnerProfile): string {
+export function formatPartnerProfile(profile: PartnerProfile | string): string {
   const map: Record<PartnerProfile, string> = {
     developer: "Real Estate Developer",
     real_estate_company: "Real Estate Company",
@@ -192,7 +231,8 @@ export function formatPartnerProfile(profile: PartnerProfile): string {
     sales_partner: "Sales Partner",
     council_landowner: "Council / Landowner",
   };
-  return map[profile];
+
+  return map[profile as PartnerProfile] ?? profile.replaceAll("_", " ");
 }
 
 // Segment Slugs

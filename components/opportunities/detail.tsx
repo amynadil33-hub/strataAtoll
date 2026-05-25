@@ -26,21 +26,27 @@ type EnhancedOpportunity = Opportunity & {
   beachClubImage?: string;
   spaImage?: string;
   galleryImages?: string[];
-  priceRange?: string;
-  islandSpeciality?: string;
-  conceptIdentity?: string;
+  priceRange?: string | null;
+  islandSpeciality?: string | null;
+  conceptIdentity?: string | null;
+  roomCategories?: Opportunity["roomCategories"];
 };
 
 export function OpportunityDetail({ opportunity }: OpportunityDetailProps) {
   const item = opportunity as EnhancedOpportunity;
 
   const heroImage = item.heroImage || item.image;
-  const aerialImage = item.aerialImage || item.image;
-  const exteriorImage = item.exteriorImage || item.image;
-  const interiorImage = item.interiorImage || item.image;
-  const bathroomImage = item.bathroomImage || item.image;
-  const beachClubImage = item.beachClubImage || item.image;
-  const spaImage = item.spaImage || item.image;
+
+  const aerialImage = item.aerialImage || item.galleryImages?.[0] || item.image;
+  const exteriorImage =
+    item.exteriorImage || item.galleryImages?.[1] || item.image;
+  const interiorImage =
+    item.interiorImage || item.galleryImages?.[2] || item.image;
+  const bathroomImage =
+    item.bathroomImage || item.galleryImages?.[3] || item.image;
+  const beachClubImage =
+    item.beachClubImage || item.galleryImages?.[4] || item.image;
+  const spaImage = item.spaImage || item.galleryImages?.[5] || item.image;
 
   const galleryImages =
     item.galleryImages && item.galleryImages.length > 0
@@ -54,7 +60,21 @@ export function OpportunityDetail({ opportunity }: OpportunityDetailProps) {
           spaImage,
         ];
 
-  const villaCollection = [
+  const roomCategories = item.roomCategories ?? [];
+
+  const supabaseVillaCollection = roomCategories.map((room) => ({
+    name: room.name,
+    type: room.categoryType,
+    text:
+      room.description ||
+      "A private resort residence shaped around luxury island living, poolside privacy, and resort-managed hospitality.",
+    price: room.priceFromUsd
+      ? `From USD ${room.priceFromUsd.toLocaleString()}`
+      : "Price on request",
+    image: room.image,
+  }));
+
+  const fallbackVillaCollection = [
     {
       name: "Elysian Lagoon Pool Villa",
       type: "1BR Lagoon Residence",
@@ -84,6 +104,11 @@ export function OpportunityDetail({ opportunity }: OpportunityDetailProps) {
       image: spaImage,
     },
   ];
+
+  const villaCollection =
+    supabaseVillaCollection.length > 0
+      ? supabaseVillaCollection
+      : fallbackVillaCollection;
 
   return (
     <>
@@ -181,7 +206,7 @@ export function OpportunityDetail({ opportunity }: OpportunityDetailProps) {
               <section>
                 <p className="eyebrow-gold mb-4">The Concept Identity</p>
                 <h2 className="font-serif text-3xl lg:text-4xl text-foreground mb-6">
-                  The Elysian Vision
+                  {item.conceptIdentity || `${opportunity.codeName} Vision`}
                 </h2>
                 <div className="space-y-5 text-muted-foreground leading-relaxed">
                   <p>{opportunity.summary}</p>
@@ -245,7 +270,7 @@ export function OpportunityDetail({ opportunity }: OpportunityDetailProps) {
                 <div className="grid md:grid-cols-2 gap-6">
                   {villaCollection.map((villa, index) => (
                     <motion.article
-                      key={villa.name}
+                      key={`${villa.name}-${index}`}
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -332,14 +357,16 @@ export function OpportunityDetail({ opportunity }: OpportunityDetailProps) {
               </section>
 
               {/* Legal Notes */}
-              <section className="glass-card p-6 lg:p-8">
-                <h3 className="font-serif text-xl text-foreground mb-4">
-                  Concept Disclaimer
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {opportunity.legalNotes}
-                </p>
-              </section>
+              {opportunity.legalNotes && (
+                <section className="glass-card p-6 lg:p-8">
+                  <h3 className="font-serif text-xl text-foreground mb-4">
+                    Concept Disclaimer
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {opportunity.legalNotes}
+                  </p>
+                </section>
+              )}
             </div>
 
             {/* Sidebar */}
