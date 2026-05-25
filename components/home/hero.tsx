@@ -11,7 +11,7 @@ export function HomeHero() {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=2865&auto=format&fit=crop')",
+            "url('https://izyihjihnuygjiikeirp.supabase.co/storage/v1/object/sign/bilafehi/bilafehinew1.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yMThmZThjNS05YmVmLTRiYzgtOTMwNi1mOGFmYjdkNWJmYzkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJiaWxhZmVoaS9iaWxhZmVoaW5ldzEucG5nIiwiaWF0IjoxNzc5NzMyMDYwLCJleHAiOjE4MTEyNjgwNjB9.5wRs_klAe8V2l9xlvXPePl4fgCfUoLxjY_pWKKbtUW0')",
         }}
       />
       {/* Gradient Overlay */}
