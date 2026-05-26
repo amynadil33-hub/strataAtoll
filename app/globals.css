@@ -4,77 +4,152 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Exact spec colors */
-  --background: #05070A;
-  --background-secondary: #0D1821;
-  --foreground: #F5F0E8;
-  --card: rgba(255,255,255,0.04);
-  --card-foreground: #F5F0E8;
-  --popover: #0D1821;
-  --popover-foreground: #F5F0E8;
-  --primary: #C8A96A;
-  --primary-foreground: #05070A;
-  --secondary: #071018;
-  --secondary-foreground: #F5F0E8;
-  --muted: #0D1821;
-  --muted-foreground: #9EA3A8;
+  /* Atoll Estates light luxury palette */
+  --background: #F7F3EA;
+  --background-secondary: #EFE7D8;
+
+  --foreground: #211C16;
+
+  --card: rgba(255, 255, 255, 0.78);
+  --card-foreground: #211C16;
+
+  --popover: #FFFFFF;
+  --popover-foreground: #211C16;
+
+  --primary: #B89452;
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #EFE7D8;
+  --secondary-foreground: #211C16;
+
+  --muted: #EFE7D8;
+  --muted-foreground: #6F675E;
+
   --accent: #D8C7A3;
-  --accent-foreground: #05070A;
-  --destructive: #7f1d1d;
-  --destructive-foreground: #F5F0E8;
-  --border: rgba(255,255,255,0.12);
-  --border-gold: rgba(200,169,106,0.25);
-  --input: rgba(255,255,255,0.08);
-  --ring: #C8A96A;
-  --chart-1: #C8A96A;
-  --chart-2: #5b8a72;
-  --chart-3: #9EA3A8;
+  --accent-foreground: #211C16;
+
+  --destructive: #9F1D1D;
+  --destructive-foreground: #FFFFFF;
+
+  --border: rgba(33, 28, 22, 0.13);
+  --border-gold: rgba(184, 148, 82, 0.35);
+
+  --input: rgba(33, 28, 22, 0.08);
+  --ring: #B89452;
+
+  --chart-1: #B89452;
+  --chart-2: #5B8A72;
+  --chart-3: #6F675E;
   --chart-4: #D8C7A3;
-  --chart-5: #7a9cc6;
+  --chart-5: #7A9CC6;
+
   --radius: 0.125rem;
-  --sidebar: #0D1821;
-  --sidebar-foreground: #F5F0E8;
-  --sidebar-primary: #C8A96A;
-  --sidebar-primary-foreground: #05070A;
-  --sidebar-accent: #071018;
-  --sidebar-accent-foreground: #F5F0E8;
-  --sidebar-border: rgba(255,255,255,0.12);
-  --sidebar-ring: #C8A96A;
+
+  --sidebar: #EFE7D8;
+  --sidebar-foreground: #211C16;
+  --sidebar-primary: #B89452;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E7DDCA;
+  --sidebar-accent-foreground: #211C16;
+  --sidebar-border: rgba(33, 28, 22, 0.13);
+  --sidebar-ring: #B89452;
+}
+
+/* If .dark is accidentally applied, keep the same light palette */
+.dark {
+  --background: #F7F3EA;
+  --background-secondary: #EFE7D8;
+
+  --foreground: #211C16;
+
+  --card: rgba(255, 255, 255, 0.78);
+  --card-foreground: #211C16;
+
+  --popover: #FFFFFF;
+  --popover-foreground: #211C16;
+
+  --primary: #B89452;
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #EFE7D8;
+  --secondary-foreground: #211C16;
+
+  --muted: #EFE7D8;
+  --muted-foreground: #6F675E;
+
+  --accent: #D8C7A3;
+  --accent-foreground: #211C16;
+
+  --destructive: #9F1D1D;
+  --destructive-foreground: #FFFFFF;
+
+  --border: rgba(33, 28, 22, 0.13);
+  --border-gold: rgba(184, 148, 82, 0.35);
+
+  --input: rgba(33, 28, 22, 0.08);
+  --ring: #B89452;
+
+  --chart-1: #B89452;
+  --chart-2: #5B8A72;
+  --chart-3: #6F675E;
+  --chart-4: #D8C7A3;
+  --chart-5: #7A9CC6;
+
+  --sidebar: #EFE7D8;
+  --sidebar-foreground: #211C16;
+  --sidebar-primary: #B89452;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E7DDCA;
+  --sidebar-accent-foreground: #211C16;
+  --sidebar-border: rgba(33, 28, 22, 0.13);
+  --sidebar-ring: #B89452;
 }
 
 @theme inline {
   --font-sans: var(--font-inter);
   --font-serif: var(--font-cormorant);
+
   --color-background: var(--background);
   --color-background-secondary: var(--background-secondary);
   --color-foreground: var(--foreground);
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+
   --color-border: var(--border);
   --color-border-gold: var(--border-gold);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 2px);
   --radius-xl: calc(var(--radius) + 4px);
+
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -89,26 +164,30 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   html {
     @apply bg-background;
     scroll-behavior: smooth;
   }
+
   body {
     @apply bg-background text-foreground antialiased;
   }
 }
 
-/* Glass card effect */
+/* Light luxury glass card effect */
 .glass-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.12);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(33, 28, 22, 0.12);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 60px rgba(33, 28, 22, 0.06);
 }
 
 /* Gold border card */
 .gold-border-card {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(200,169,106,0.25);
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(184, 148, 82, 0.35);
+  box-shadow: 0 20px 60px rgba(33, 28, 22, 0.05);
 }
 
 /* Luxury scrollbar */
@@ -117,33 +196,38 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #05070A;
+  background: #F7F3EA;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(200,169,106,0.3);
+  background: rgba(184, 148, 82, 0.45);
   border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(200,169,106,0.5);
+  background: rgba(184, 148, 82, 0.65);
 }
 
 /* Selection */
 ::selection {
-  background: rgba(200,169,106,0.3);
-  color: #F5F0E8;
+  background: rgba(184, 148, 82, 0.28);
+  color: #211C16;
 }
 
 /* Elegant focus styles */
 .focus-gold:focus {
   outline: none;
-  box-shadow: 0 0 0 1px rgba(200,169,106,0.5);
+  box-shadow: 0 0 0 1px rgba(184, 148, 82, 0.55);
 }
 
 /* Thin line decorations */
 .line-gold {
-  background: linear-gradient(90deg, transparent, rgba(200,169,106,0.4), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(184, 148, 82, 0.5),
+    transparent
+  );
   height: 1px;
 }
 
