@@ -45,10 +45,22 @@ export default function SubmitOpportunityPage() {
     highlights: "",
     documents: false,
   });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Opportunity submitted:", formData);
+    setStatus("submitting");
+    const response = await fetch("/api/forms", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        formType: "submit-opportunity",
+        replyTo: formData.email,
+        subject: `Opportunity Submission: ${formData.propertyName || formData.contactName}`,
+        fields: formData,
+      }),
+    });
+    setStatus(response.ok ? "success" : "error");
   };
 
   return (
@@ -323,10 +335,23 @@ export default function SubmitOpportunityPage() {
               <div className="pt-8">
                 <button
                   type="submit"
+                  disabled={status === "submitting"}
                   className="w-full sm:w-auto px-12 py-5 bg-primary text-primary-foreground text-sm tracking-widest uppercase hover:bg-primary/90 transition-colors"
                 >
-                  Submit for Review
+                  {status === "submitting" ? "Submitting..." : "Submit for Review"}
                 </button>
+                {status === "success" && (
+                  <p className="mt-4 text-sm text-primary">Submission sent successfully.</p>
+                )}
+                {status === "error" && (
+                  <p className="mt-4 text-sm text-destructive">
+                    Submission failed. Please email{" "}
+                    <a className="underline" href="mailto:maldiveinvest@musalhu.com">
+                      maldiveinvest@musalhu.com
+                    </a>
+                    .
+                  </p>
+                )}
                 <p className="mt-6 text-xs text-muted-foreground">
                   Our advisory team will review your submission and contact you within 
                   5-7 business days if the opportunity meets our criteria.
