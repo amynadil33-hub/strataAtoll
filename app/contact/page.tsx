@@ -47,10 +47,22 @@ export default function ContactPage() {
     inquiryType: "",
     message: "",
   });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Contact form:", formData);
+    setStatus("submitting");
+    const response = await fetch("/api/forms", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        formType: "contact",
+        replyTo: formData.email,
+        subject: `Contact Form: ${formData.name}`,
+        fields: formData,
+      }),
+    });
+    setStatus(response.ok ? "success" : "error");
   };
 
   return (
@@ -218,10 +230,23 @@ export default function ContactPage() {
               <div className="pt-4">
                 <button
                   type="submit"
+                  disabled={status === "submitting"}
                   className="w-full sm:w-auto px-12 py-5 bg-primary text-primary-foreground text-sm tracking-widest uppercase hover:bg-primary/90 transition-colors"
                 >
-                  Send Message
+                  {status === "submitting" ? "Sending..." : "Send Message"}
                 </button>
+                {status === "success" && (
+                  <p className="mt-4 text-sm text-primary">Message sent successfully.</p>
+                )}
+                {status === "error" && (
+                  <p className="mt-4 text-sm text-destructive">
+                    Unable to send right now. Please email {` `}
+                    <a className="underline" href="mailto:maldiveinvest@musalhu.com">
+                      maldiveinvest@musalhu.com
+                    </a>
+                    .
+                  </p>
+                )}
               </div>
             </motion.form>
           </div>
@@ -235,24 +260,24 @@ export default function ContactPage() {
                 <p className="text-xs tracking-widest uppercase text-muted-foreground mb-2">
                   Investor Relations
                 </p>
-                <a href="mailto:investors@islandvest.mv" className="text-foreground hover:text-primary transition-colors">
-                  investors@islandvest.mv
+                <a href="mailto:maldiveinvest@musalhu.com" className="text-foreground hover:text-primary transition-colors">
+                  maldiveinvest@musalhu.com
                 </a>
               </div>
               <div>
                 <p className="text-xs tracking-widest uppercase text-muted-foreground mb-2">
                   Asset Submissions
                 </p>
-                <a href="mailto:opportunities@islandvest.mv" className="text-foreground hover:text-primary transition-colors">
-                  opportunities@islandvest.mv
+                <a href="mailto:maldiveinvest@musalhu.com" className="text-foreground hover:text-primary transition-colors">
+                  maldiveinvest@musalhu.com
                 </a>
               </div>
               <div>
                 <p className="text-xs tracking-widest uppercase text-muted-foreground mb-2">
                   Media Inquiries
                 </p>
-                <a href="mailto:press@islandvest.mv" className="text-foreground hover:text-primary transition-colors">
-                  press@islandvest.mv
+                <a href="mailto:maldiveinvest@musalhu.com" className="text-foreground hover:text-primary transition-colors">
+                  maldiveinvest@musalhu.com
                 </a>
               </div>
             </div>

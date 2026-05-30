@@ -24,6 +24,7 @@ export function HomeHero() {
       />
 
       {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/20 md:from-black/75 md:via-black/35 md:to-black/10" />
 
       {/* Extra mobile readability overlay */}
@@ -45,6 +46,7 @@ export function HomeHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white heading-luxury mb-6"
             className="font-serif text-[2.75rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl text-white heading-luxury mb-5 sm:mb-6 max-w-5xl"
           >
             Curated Maldives Tourism Real Estate Opportunities
@@ -54,6 +56,7 @@ export function HomeHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-base sm:text-lg lg:text-xl text-white/75 leading-relaxed max-w-3xl mb-10"
             className="text-base sm:text-lg lg:text-xl text-white/78 leading-relaxed max-w-3xl mb-8 sm:mb-10"
           >
             Private access to integrated tourism projects, strata villa
@@ -76,6 +79,7 @@ export function HomeHero() {
             </Link>
             <Link
               href="/request-access"
+              className="px-8 py-4 border border-white/25 bg-white/15 text-white text-sm tracking-[0.15em] uppercase hover:border-white/50 transition-colors text-center"
               className="px-7 sm:px-8 py-4 border border-white/30 bg-white/15 text-white text-xs sm:text-sm tracking-[0.15em] uppercase hover:border-white/50 hover:bg-white/20 transition-colors text-center backdrop-blur-sm"
             >
               Request Private Access
