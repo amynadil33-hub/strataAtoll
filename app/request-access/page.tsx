@@ -49,6 +49,7 @@ export default function RequestAccessPage() {
     accreditedConfirm: false,
     termsAccept: false,
   });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
   const handleInterestToggle = (interest: string) => {
     setFormData((prev) => ({
@@ -59,10 +60,20 @@ export default function RequestAccessPage() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Will connect to Supabase
-    console.log("Form submitted:", formData);
+    setStatus("submitting");
+    const response = await fetch("/api/forms", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        formType: "request-access",
+        replyTo: formData.email,
+        subject: `Request Access: ${formData.firstName} ${formData.lastName}`,
+        fields: formData,
+      }),
+    });
+    setStatus(response.ok ? "success" : "error");
   };
 
   return (
@@ -306,10 +317,23 @@ export default function RequestAccessPage() {
               <div className="pt-8">
                 <button
                   type="submit"
+                  disabled={status === "submitting"}
                   className="w-full sm:w-auto px-12 py-5 bg-primary text-primary-foreground text-sm tracking-widest uppercase hover:bg-primary/90 transition-colors"
                 >
-                  Submit Application
+                  {status === "submitting" ? "Submitting..." : "Submit Application"}
                 </button>
+                {status === "success" && (
+                  <p className="mt-4 text-sm text-primary">Application sent successfully.</p>
+                )}
+                {status === "error" && (
+                  <p className="mt-4 text-sm text-destructive">
+                    Submission failed. Please email{" "}
+                    <a className="underline" href="mailto:support@musalhu.com">
+                      support@musalhu.com
+                    </a>
+                    .
+                  </p>
+                )}
                 <p className="mt-6 text-xs text-muted-foreground">
                   Applications are typically reviewed within 48-72 hours. A member of our 
                   investor relations team will contact you directly.
