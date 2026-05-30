@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 
+export const runtime = "nodejs";
+
+// Keep this route as a Vercel FastAPI proxy; do not merge direct email transport code here.
 const DESTINATION_EMAIL = "support@musalhu.com";
 const FAST_API_URL =
   process.env.VERCEL_FAST_API_URL || process.env.VERCEL_FASTAPI_URL;
@@ -50,7 +53,7 @@ export async function POST(request: Request) {
       headers.Authorization = `Bearer ${FAST_API_TOKEN}`;
     }
 
-    const fastApiResponse = await fetch(FAST_API_URL, {
+    const fastApiResponse = await fetch(FAST_API_URL.trim(), {
       method: "POST",
       headers,
       body: JSON.stringify({
