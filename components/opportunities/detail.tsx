@@ -118,7 +118,8 @@ export function OpportunityDetail({ opportunity }: OpportunityDetailProps) {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url('${heroImage}')` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/20" />
+        <div className="absolute inset-0 bg-black/20" />
 
         <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-12">
           <motion.div
@@ -128,7 +129,7 @@ export function OpportunityDetail({ opportunity }: OpportunityDetailProps) {
           >
             <Link
               href="/opportunities"
-              className="inline-flex items-center gap-2 text-sm text-white/75 hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Opportunities
@@ -141,7 +142,7 @@ export function OpportunityDetail({ opportunity }: OpportunityDetailProps) {
               animate={{ opacity: 1, y: 0 }}
               className="flex flex-wrap gap-3 mb-6"
             >
-              <span className="px-4 py-2 bg-white/15 backdrop-blur-sm text-white text-xs tracking-[0.15em] uppercase border border-white/25">
+              <span className="px-4 py-2 bg-background/80 backdrop-blur-sm text-primary text-xs tracking-[0.15em] uppercase border border-border">
                 {formatCategory(opportunity.category)}
               </span>
               <span className="px-4 py-2 bg-primary/90 text-primary-foreground text-xs tracking-[0.15em] uppercase flex items-center gap-2">
@@ -163,7 +164,7 @@ export function OpportunityDetail({ opportunity }: OpportunityDetailProps) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white heading-luxury mb-6"
+              className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-foreground heading-luxury mb-6"
             >
               {opportunity.title}
             </motion.h1>
@@ -172,7 +173,7 @@ export function OpportunityDetail({ opportunity }: OpportunityDetailProps) {
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="max-w-3xl text-lg lg:text-xl text-white/75 leading-relaxed mb-8"
+              className="max-w-3xl text-lg lg:text-xl text-muted-foreground leading-relaxed mb-8"
             >
               {item.conceptIdentity ||
                 "A cinematic Maldives island estate concept shaped around private pool living, resort-managed hospitality, and global luxury ownership appeal."}
@@ -182,7 +183,7 @@ export function OpportunityDetail({ opportunity }: OpportunityDetailProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="flex flex-wrap items-center gap-6 text-sm text-white/75"
+              className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground"
             >
               <span className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />

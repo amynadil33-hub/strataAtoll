@@ -36,7 +36,7 @@ export function PageHero({
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url('${backgroundImage}')` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/40" />
         </>
       )}
 
@@ -58,9 +58,7 @@ export function PageHero({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className={`font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-luxury ${
-              backgroundImage ? "text-white" : "text-foreground"
-            }`}
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-foreground heading-luxury"
           >
             {title}
           </motion.h1>
@@ -70,9 +68,7 @@ export function PageHero({
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className={`mt-6 lg:mt-8 text-base sm:text-lg lg:text-xl leading-relaxed max-w-3xl ${
-                backgroundImage ? "text-white/75" : "text-muted-foreground"
-              }`}
+              className="mt-6 lg:mt-8 text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-3xl"
             >
               {subtitle}
             </motion.p>

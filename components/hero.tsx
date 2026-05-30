@@ -13,8 +13,8 @@ export function Hero() {
             backgroundImage: `url('https://images.unsplash.com/photo-1573843981267-be1999ff37cd?q=80&w=2874&auto=format&fit=crop')`,
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/35 to-black/10" />
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
+        <div className="absolute inset-0 bg-background/30" />
       </div>
 
       {/* Content */}

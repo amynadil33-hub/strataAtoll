@@ -15,7 +15,7 @@ export function HomeHero() {
         }}
       />
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-12">
@@ -33,7 +33,7 @@ export function HomeHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white heading-luxury mb-6"
+            className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-foreground heading-luxury mb-6"
           >
             Curated Maldives Tourism Real Estate Opportunities
           </motion.h1>
@@ -42,7 +42,7 @@ export function HomeHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base sm:text-lg lg:text-xl text-white/75 leading-relaxed max-w-3xl mb-10"
+            className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-3xl mb-10"
           >
             Private access to integrated tourism projects, strata villa
             developments, resort assets, inhabited-island tourism land, and
@@ -64,7 +64,7 @@ export function HomeHero() {
             </Link>
             <Link
               href="/request-access"
-              className="px-8 py-4 border border-white/25 bg-white/15 text-white text-sm tracking-[0.15em] uppercase hover:border-white/50 transition-colors text-center"
+              className="px-8 py-4 border border-foreground/30 text-foreground text-sm tracking-[0.15em] uppercase hover:border-primary hover:text-primary transition-colors text-center"
             >
               Request Private Access
             </Link>

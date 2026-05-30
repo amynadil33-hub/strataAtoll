@@ -22,7 +22,7 @@ export function SegmentDetail({ content, relatedOpportunities }: SegmentDetailPr
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url('${content.heroImage}')` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
 
         <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-12">
           <motion.div
