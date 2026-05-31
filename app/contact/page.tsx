@@ -9,8 +9,8 @@ const offices = [
   {
     city: "Malé",
     country: "Maldives",
-    address: "H. Isles REsidence",
-    addressLine2: "Boduthakurufaanu Magu",
+    address: "H. Isles Residence",
+    addressLine2: "Roshanee Magu",
     phone: "+960 798 2165",
     type: "Headquarters",
   },
