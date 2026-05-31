@@ -346,8 +346,8 @@ export default function SubmitOpportunityPage() {
                 {status === "error" && (
                   <p className="mt-4 text-sm text-destructive">
                     Submission failed. Please email{" "}
-                    <a className="underline" href="mailto:maldiveinvest@musalhu.com">
-                      maldiveinvest@musalhu.com
+                    <a className="underline" href="mailto:support@musalhu.com">
+                      support@musalhu.com
                     </a>
                     .
                   </p>

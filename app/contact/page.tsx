@@ -241,8 +241,8 @@ export default function ContactPage() {
                 {status === "error" && (
                   <p className="mt-4 text-sm text-destructive">
                     Unable to send right now. Please email {` `}
-                    <a className="underline" href="mailto:maldiveinvest@musalhu.com">
-                      maldiveinvest@musalhu.com
+                    <a className="underline" href="mailto:support@musalhu.com">
+                      support@musalhu.com
                     </a>
                     .
                   </p>
@@ -260,24 +260,24 @@ export default function ContactPage() {
                 <p className="text-xs tracking-widest uppercase text-muted-foreground mb-2">
                   Investor Relations
                 </p>
-                <a href="mailto:maldiveinvest@musalhu.com" className="text-foreground hover:text-primary transition-colors">
-                  maldiveinvest@musalhu.com
+                <a href="mailto:support@musalhu.com" className="text-foreground hover:text-primary transition-colors">
+                  support@musalhu.com
                 </a>
               </div>
               <div>
                 <p className="text-xs tracking-widest uppercase text-muted-foreground mb-2">
                   Asset Submissions
                 </p>
-                <a href="mailto:maldiveinvest@musalhu.com" className="text-foreground hover:text-primary transition-colors">
-                  maldiveinvest@musalhu.com
+                <a href="mailto:support@musalhu.com" className="text-foreground hover:text-primary transition-colors">
+                  support@musalhu.com
                 </a>
               </div>
               <div>
                 <p className="text-xs tracking-widest uppercase text-muted-foreground mb-2">
                   Media Inquiries
                 </p>
-                <a href="mailto:maldiveinvest@musalhu.com" className="text-foreground hover:text-primary transition-colors">
-                  maldiveinvest@musalhu.com
+                <a href="mailto:support@musalhu.com" className="text-foreground hover:text-primary transition-colors">
+                  support@musalhu.com
                 </a>
               </div>
             </div>
