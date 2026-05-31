@@ -9,9 +9,9 @@ const offices = [
   {
     city: "Malé",
     country: "Maldives",
-    address: "H. Sunleet, 8th Floor",
+    address: "H. Isles REsidence",
     addressLine2: "Boduthakurufaanu Magu",
-    phone: "+960 332 8800",
+    phone: "+960 798 2165",
     type: "Headquarters",
   },
   {
@@ -19,7 +19,6 @@ const offices = [
     country: "Singapore",
     address: "One Raffles Quay",
     addressLine2: "North Tower, Level 35",
-    phone: "+65 6622 1800",
     type: "Asia-Pacific",
   },
   {
@@ -27,7 +26,6 @@ const offices = [
     country: "UAE",
     address: "DIFC, Gate Building",
     addressLine2: "Level 15",
-    phone: "+971 4 401 9900",
     type: "Middle East",
   },
 ];
