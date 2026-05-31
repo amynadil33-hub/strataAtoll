@@ -52,10 +52,18 @@ export function LuxuryHeader() {
             {/* Logo */}
             <Link href="/" className="relative z-50">
               <div className="flex flex-col">
-                <span className="font-serif text-xl lg:text-2xl tracking-[0.15em] text-foreground">
+                <span
+                  className={`font-serif text-xl lg:text-2xl tracking-[0.15em] ${
+                    isScrolled ? "text-foreground" : "text-white"
+                  }`}
+                >
                   ATOLL ESTATES
                 </span>
-                <span className="text-[10px] tracking-[0.25em] text-muted-foreground uppercase hidden sm:block">
+                <span
+                  className={`text-[10px] tracking-[0.25em] uppercase hidden sm:block ${
+                    isScrolled ? "text-muted-foreground" : "text-white/75"
+                  }`}
+                >
                   Maldives Tourism Real Estate
                 </span>
               </div>
@@ -67,7 +75,11 @@ export function LuxuryHeader() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
+                  className={`text-xs tracking-[0.15em] uppercase transition-colors duration-300 ${
+                    isScrolled
+                      ? "text-muted-foreground hover:text-foreground"
+                      : "text-white/80 hover:text-white"
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -91,15 +103,19 @@ export function LuxuryHeader() {
               >
                 <motion.span
                   animate={isMobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                  className="w-6 h-px bg-foreground origin-center"
+                  className={`w-6 h-px origin-center ${
+                    isScrolled ? "bg-foreground" : "bg-white"
+                  }`}
                 />
                 <motion.span
                   animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-                  className="w-6 h-px bg-foreground"
+                  className={`w-6 h-px ${isScrolled ? "bg-foreground" : "bg-white"}`}
                 />
                 <motion.span
                   animate={isMobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                  className="w-6 h-px bg-foreground origin-center"
+                  className={`w-6 h-px origin-center ${
+                    isScrolled ? "bg-foreground" : "bg-white"
+                  }`}
                 />
               </button>
             </div>

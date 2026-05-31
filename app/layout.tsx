@@ -28,26 +28,13 @@ export const metadata: Metadata = {
     "family office investment",
   ],
   icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
+    icon: "/icon-light-32x32.png",
     apple: "/apple-icon.png",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#05070A",
+  themeColor: "#F7F3EA",
   width: "device-width",
   initialScale: 1,
 };
