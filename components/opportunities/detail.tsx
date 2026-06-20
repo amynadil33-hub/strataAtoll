@@ -62,17 +62,30 @@ export function OpportunityDetail({ opportunity }: OpportunityDetailProps) {
 
   const roomCategories = item.roomCategories ?? [];
 
-  const supabaseVillaCollection = roomCategories.map((room) => ({
-    name: room.name,
-    type: room.categoryType,
-    text:
-      room.description ||
-      "A private resort residence shaped around luxury island living, poolside privacy, and resort-managed hospitality.",
-    price: room.priceFromUsd
-      ? `From USD ${room.priceFromUsd.toLocaleString()}`
-      : "Price on request",
-    image: room.image,
-  }));
+  const supabaseVillaCollection = roomCategories.map((room) => {
+    const roomWithFallbacks = room as typeof room & {
+      imageUrl?: string | null;
+      gallery_images?: string[] | null;
+    };
+    const imageSrc =
+      room.image?.trim?.() ||
+      roomWithFallbacks.imageUrl?.trim?.() ||
+      roomWithFallbacks.gallery_images?.[0]?.trim?.() ||
+      room.galleryImages?.[0]?.trim?.() ||
+      "/placeholder.svg";
+
+    return {
+      name: room.name,
+      type: room.categoryType,
+      text:
+        room.description ||
+        "A private resort residence shaped around luxury island living, poolside privacy, and resort-managed hospitality.",
+      price: room.priceFromUsd
+        ? `From USD ${room.priceFromUsd.toLocaleString()}`
+        : "Price on request",
+      image: imageSrc,
+    };
+  });
 
   const fallbackVillaCollection = [
     {
