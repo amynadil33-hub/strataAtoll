@@ -12,14 +12,18 @@ interface OpportunityPageProps {
 export async function generateStaticParams() {
   const opportunities = await getAllOpportunities();
 
-  return opportunities.map((opp) => ({
-    slug: opp.slug,
-  }));
+  return opportunities
+    .filter((opp) => opp.slug)
+    .map((opp) => ({
+      slug: opp.slug.trim(),
+    }));
 }
 
 export async function generateMetadata({ params }: OpportunityPageProps) {
   const { slug } = await params;
-  const opportunity = await getOpportunityBySlug(slug);
+  const cleanSlug = slug.trim();
+
+  const opportunity = await getOpportunityBySlug(cleanSlug);
 
   if (!opportunity) {
     return {
@@ -35,7 +39,9 @@ export async function generateMetadata({ params }: OpportunityPageProps) {
 
 export default async function OpportunityPage({ params }: OpportunityPageProps) {
   const { slug } = await params;
-  const opportunity = await getOpportunityBySlug(slug);
+  const cleanSlug = slug.trim();
+
+  const opportunity = await getOpportunityBySlug(cleanSlug);
 
   if (!opportunity) {
     notFound();

@@ -5,6 +5,8 @@ import type {
   RoomCategory,
 } from "@/lib/types";
 
+type NullableString = string | null | undefined;
+
 type RoomCategoryRow = {
   id: string;
   opportunity_id: string;
@@ -12,13 +14,13 @@ type RoomCategoryRow = {
   name: string;
   category_type: string;
   description: string | null;
-  bedroom_count: number | null;
-  bathroom_count: number | null;
-  indoor_area_sqm: number | null;
-  outdoor_area_sqm: number | null;
-  total_area_sqm: number | null;
-  price_from_usd: number | null;
-  image: string;
+  bedroom_count: number | string | null;
+  bathroom_count: number | string | null;
+  indoor_area_sqm: number | string | null;
+  outdoor_area_sqm: number | string | null;
+  total_area_sqm: number | string | null;
+  price_from_usd: number | string | null;
+  image: string | null;
   gallery_images: string[] | null;
   features: string[] | null;
   sort_order: number | null;
@@ -45,13 +47,12 @@ type OpportunityRow = {
   highlights: string[] | null;
   legal_notes: string | null;
   locked_items: string[] | null;
-  image: string;
+  image: string | null;
   gallery_images: string[] | null;
   is_featured: boolean | null;
   is_visible: boolean | null;
   created_at: string;
 
-  // Optional page content columns
   concept_identity?: string | null;
   island_speciality?: string | null;
   price_range?: string | null;
@@ -60,34 +61,82 @@ type OpportunityRow = {
   villa_section_heading?: string | null;
   villa_section_subtitle?: string | null;
 
-  // Added manually after fetching room_categories
   room_categories?: RoomCategoryRow[];
 };
 
+type ExtendedRoomCategory = RoomCategory & {
+  imageUrl?: string | null;
+  gallery_images?: string[];
+};
+
+function cleanString(value: NullableString): string {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function cleanStringOrNull(value: NullableString): string | null {
+  const cleaned = cleanString(value);
+  return cleaned.length > 0 ? cleaned : null;
+}
+
+function cleanStringArray(value: string[] | null | undefined): string[] {
+  if (!Array.isArray(value)) return [];
+
+  return value
+    .map((item) => cleanString(item))
+    .filter((item) => item.length > 0);
+}
+
+function toNumberOrNull(value: number | string | null | undefined): number | null {
+  if (value === null || value === undefined || value === "") return null;
+
+  const numberValue = Number(value);
+  return Number.isFinite(numberValue) ? numberValue : null;
+}
+
 function mapRoomCategory(row: RoomCategoryRow): RoomCategory {
-  return {
+  const galleryImagesFromDb = cleanStringArray(row.gallery_images);
+  const mainImage = cleanString(row.image) || galleryImagesFromDb[0] || "";
+  const galleryImages =
+    galleryImagesFromDb.length > 0
+      ? galleryImagesFromDb
+      : mainImage
+        ? [mainImage]
+        : [];
+
+  const mapped: ExtendedRoomCategory = {
     id: row.id,
     opportunityId: row.opportunity_id,
-    slug: row.slug,
+    slug: cleanString(row.slug),
     name: row.name,
-    categoryType: row.category_type,
+    categoryType: row.category_type || "Villa",
     description: row.description,
-    bedroomCount: row.bedroom_count,
-    bathroomCount: row.bathroom_count,
-    indoorAreaSqm: row.indoor_area_sqm,
-    outdoorAreaSqm: row.outdoor_area_sqm,
-    totalAreaSqm: row.total_area_sqm,
-    priceFromUsd: row.price_from_usd,
-    image: row.image,
-    galleryImages: row.gallery_images ?? [],
-    features: row.features ?? [],
+    bedroomCount: toNumberOrNull(row.bedroom_count),
+    bathroomCount: toNumberOrNull(row.bathroom_count),
+    indoorAreaSqm: toNumberOrNull(row.indoor_area_sqm),
+    outdoorAreaSqm: toNumberOrNull(row.outdoor_area_sqm),
+    totalAreaSqm: toNumberOrNull(row.total_area_sqm),
+    priceFromUsd: toNumberOrNull(row.price_from_usd),
+
+    // Important image fields
+    image: mainImage || "/placeholder.svg",
+    imageUrl: mainImage || null,
+    galleryImages,
+    gallery_images: galleryImages,
+
+    features: cleanStringArray(row.features),
     sortOrder: row.sort_order ?? 0,
     isVisible: row.is_visible ?? true,
     createdAt: row.created_at ?? undefined,
   };
+
+  return mapped;
 }
 
 export function mapOpportunity(row: OpportunityRow): Opportunity {
+  const opportunityGalleryImages = cleanStringArray(row.gallery_images);
+  const opportunityImage =
+    cleanString(row.image) || opportunityGalleryImages[0] || "/placeholder.svg";
+
   const roomCategories = (row.room_categories ?? [])
     .filter((room) => room.is_visible !== false)
     .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
@@ -95,7 +144,7 @@ export function mapOpportunity(row: OpportunityRow): Opportunity {
 
   return {
     id: row.id,
-    slug: row.slug,
+    slug: cleanString(row.slug),
     title: row.title,
     codeName: row.code_name,
     category: row.category,
@@ -110,10 +159,12 @@ export function mapOpportunity(row: OpportunityRow): Opportunity {
     estimatedScale: row.estimated_scale,
     partnerProfile: row.partner_profile ?? [],
     highlights: row.highlights ?? [],
-    legalNotes: row.legal_notes,
+    legalNotes: row.legal_notes ?? "",
     lockedItems: row.locked_items ?? [],
-    image: row.image,
-    galleryImages: row.gallery_images ?? [],
+
+    image: opportunityImage,
+    galleryImages: opportunityGalleryImages,
+
     isFeatured: row.is_featured ?? false,
     isVisible: row.is_visible ?? true,
     createdAt: row.created_at,
@@ -174,19 +225,48 @@ export async function getFeaturedOpportunities(): Promise<Opportunity[]> {
 export async function getOpportunityBySlug(
   slug: string
 ): Promise<Opportunity | null> {
-  const { data: opportunityData, error: opportunityError } = await supabase
+  const cleanSlug = cleanString(slug);
+
+  let opportunityData: OpportunityRow | null = null;
+
+  const { data: exactData, error: exactError } = await supabase
     .from("opportunities")
     .select("*")
-    .eq("slug", slug)
+    .eq("slug", cleanSlug)
     .eq("is_visible", true)
     .maybeSingle();
 
-  if (opportunityError) {
+  if (exactError) {
     console.error(
-      `Failed to fetch opportunity for slug: ${slug}`,
-      opportunityError
+      `Failed to fetch opportunity for slug: ${cleanSlug}`,
+      exactError
     );
     return null;
+  }
+
+  opportunityData = exactData as OpportunityRow | null;
+
+  // Fallback for old rows with accidental trailing spaces in slug.
+  if (!opportunityData) {
+    const { data: fallbackData, error: fallbackError } = await supabase
+      .from("opportunities")
+      .select("*")
+      .eq("is_visible", true)
+      .ilike("slug", `${cleanSlug}%`)
+      .limit(10);
+
+    if (fallbackError) {
+      console.error(
+        `Failed fallback fetch for opportunity slug: ${cleanSlug}`,
+        fallbackError
+      );
+      return null;
+    }
+
+    opportunityData =
+      ((fallbackData as OpportunityRow[] | null) ?? []).find(
+        (item) => cleanString(item.slug) === cleanSlug
+      ) ?? null;
   }
 
   if (!opportunityData) {
@@ -195,9 +275,29 @@ export async function getOpportunityBySlug(
 
   const { data: roomData, error: roomError } = await supabase
     .from("room_categories")
-    .select("*")
+    .select(
+      `
+      id,
+      opportunity_id,
+      slug,
+      name,
+      category_type,
+      description,
+      bedroom_count,
+      bathroom_count,
+      indoor_area_sqm,
+      outdoor_area_sqm,
+      total_area_sqm,
+      price_from_usd,
+      image,
+      gallery_images,
+      features,
+      sort_order,
+      is_visible,
+      created_at
+    `
+    )
     .eq("opportunity_id", opportunityData.id)
-    .eq("is_visible", true)
     .order("sort_order", { ascending: true });
 
   if (roomError) {
@@ -208,7 +308,7 @@ export async function getOpportunityBySlug(
   }
 
   return mapOpportunity({
-    ...(opportunityData as OpportunityRow),
+    ...opportunityData,
     room_categories: (roomData ?? []) as RoomCategoryRow[],
   });
 }
